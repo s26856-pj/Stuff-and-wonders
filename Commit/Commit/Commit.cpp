@@ -9,11 +9,11 @@ void przypomnij_o_commit() {
     CFStringRef notificationTitle = CFStringCreateWithCString(NULL, "Przypomnienie o commicie", kCFStringEncodingUTF8);
     CFStringRef notificationBody = CFStringCreateWithCString(NULL, "Klaudia Słońce, zrób commit!", kCFStringEncodingUTF8);
 
-    // Tworzymy obiekt powiadomienia
+    
     CFUserNotificationRef userNotification = CFUserNotificationCreate(
-        NULL,               // allocator
-        0,                  // timeout (0 - brak timeoutu)
-        kCFUserNotificationNoteAlertLevel, // styl powiadomienia
+        NULL,               
+        0,                  
+        kCFUserNotificationNoteAlertLevel, 
         NULL,               
         notificationTitle, 
         notificationBody,
