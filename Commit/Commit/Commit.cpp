@@ -6,7 +6,7 @@ void przypomnij_o_commit() {
 }
 
 int main() {
-    
+    // Ustawiamy czas przypomnienia (20 minut w milisekundach)
     DWORD czas_przypomnienia = 20 * 60 * 1000;
 
     while (true) {
