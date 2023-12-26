@@ -1,16 +1,41 @@
-﻿#include <Windows.h>
-#include <tchar.h>
+#include <iostream>
+#include <unistd.h>
+#include <ApplicationServices/ApplicationServices.h>
+#include <CoreFoundation/CoreFoundation.h>
+#include <UserNotifications/UserNotifications.h>
 
 void przypomnij_o_commit() {
-    MessageBox(NULL, _T("Klaudia Słońce, zrób commit!"), _T("Przypomnienie o commicie"), MB_ICONINFORMATION | MB_OK);
+    
+    CFStringRef notificationTitle = CFStringCreateWithCString(NULL, "Przypomnienie o commicie", kCFStringEncodingUTF8);
+    CFStringRef notificationBody = CFStringCreateWithCString(NULL, "Klaudia Słońce, zrób commit!", kCFStringEncodingUTF8);
+
+    // Tworzymy obiekt powiadomienia
+    CFUserNotificationRef userNotification = CFUserNotificationCreate(
+        NULL,               // allocator
+        0,                  // timeout (0 - brak timeoutu)
+        kCFUserNotificationNoteAlertLevel, // styl powiadomienia
+        NULL,               
+        notificationTitle, 
+        notificationBody,
+        NULL                
+    );
+
+  
+    CFOptionFlags response;
+    CFUserNotificationReceiveResponse(userNotification, 0, &response);
+
+    
+    CFRelease(notificationTitle);
+    CFRelease(notificationBody);
+    CFRelease(userNotification);
 }
 
 int main() {
-    // Ustawiamy czas przypomnienia (20 minut w milisekundach)
-    DWORD czas_przypomnienia = 20 * 60 * 1000;
+    
+    unsigned int czas_przypomnienia = 10 * 60;
 
     while (true) {
-        Sleep(czas_przypomnienia);
+        sleep(czas_przypomnienia);
         przypomnij_o_commit();
     }
 
